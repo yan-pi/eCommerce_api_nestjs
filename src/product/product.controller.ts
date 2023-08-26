@@ -17,7 +17,7 @@ import { FilterProductDTO } from './dtos/filter-product.dto';
 export class ProductController {
   constructor(private productService: ProductService) {}
 
-  @Get('/')
+  @Get('/product-list')
   async getProducts(@Query() filterProductDTO: FilterProductDTO) {
     if (Object.keys(filterProductDTO).length) {
       const filteredProducts =
@@ -29,20 +29,20 @@ export class ProductController {
     }
   }
 
-  @Get('/:id')
+  @Get('/product-by-id/:id')
   async getProduct(@Param('id') id: string) {
     const product = await this.productService.getProduct(id);
     if (!product) throw new NotFoundException('Product does not exist!');
     return product;
   }
 
-  @Post('/')
+  @Post('/add-product/:id')
   async addProduct(@Body() createProductDTO: CreateProductDTO) {
     const product = await this.productService.addProduct(createProductDTO);
     return product;
   }
 
-  @Put('/:id')
+  @Put('/update-product/:id')
   async updateProduct(
     @Param('id') id: string,
     @Body() createProductDTO: CreateProductDTO,
@@ -55,7 +55,7 @@ export class ProductController {
     return product;
   }
 
-  @Delete('/:id')
+  @Delete('/delete-product/:id')
   async deleteProduct(@Param('id') id: string) {
     const product = await this.productService.deleteProduct(id);
     if (!product) throw new NotFoundException('Product does not exist');
