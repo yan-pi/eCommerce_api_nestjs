@@ -36,7 +36,7 @@ export class ProductController {
     return product;
   }
 
-  @Post('/add-product/:id')
+  @Post('/add-product')
   async addProduct(@Body() createProductDTO: CreateProductDTO) {
     const product = await this.productService.addProduct(createProductDTO);
     return product;
